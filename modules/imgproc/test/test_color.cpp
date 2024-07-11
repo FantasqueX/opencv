@@ -39,6 +39,8 @@
 //
 //M*/
 
+#include <iostream>
+
 #include "test_precomp.hpp"
 
 namespace opencv_test { namespace {
@@ -1866,6 +1868,22 @@ TEST(Imgproc_ColorBayer, regression)
     CV_Assert( !given.empty() && !gold.empty() );
 
     cvtColor(given, result, COLOR_BayerBG2GRAY);
+
+    // for ()
+    for(int i = 0; i < gold.rows; ++i) {
+        auto gold_ptr = gold.ptr<uchar>(i);
+        auto result_ptr = result.ptr<uchar>(i);
+        for (int j = 0; j < gold.cols; ++j) {
+            if (gold_ptr[j] != result_ptr[j]) {
+                std::cout << i << " " << j << " ";
+                std::cout << static_cast<int>(gold_ptr[j]) << " ";
+                std::cout << static_cast<int>(result_ptr[j]) << " ";
+                std::cout << "\n";
+            }
+        }
+    }
+
+    imwrite("bayer_output.png", result);
 
     EXPECT_EQ(gold.type(), result.type());
     EXPECT_EQ(gold.cols, result.cols);
