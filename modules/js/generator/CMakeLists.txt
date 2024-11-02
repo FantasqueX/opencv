@@ -94,7 +94,7 @@ unset(__config_str)
 add_custom_command(
   OUTPUT ${bindings_cpp} "${OPENCV_DEPHELPER}/gen_opencv_js_source"
   COMMAND
-      ${PYTHON_DEFAULT_EXECUTABLE}
+      ${OPENCV_PYTHON_HOST_EXECUTABLE}
       "${CMAKE_CURRENT_SOURCE_DIR}/embindgen.py"
       --parser "${scripts_hdr_parser}"
       --output_file "${bindings_cpp}"

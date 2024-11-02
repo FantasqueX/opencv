@@ -81,7 +81,7 @@ class Builder:
     def get_cmake_cmd(self):
         cmd = [
             "cmake",
-            "-DPYTHON_DEFAULT_EXECUTABLE=%s" % sys.executable,
+            "-DOPENCV_PYTHON_HOST_EXECUTABLE=%s" % sys.executable,
                "-DENABLE_PIC=FALSE", # To workaround emscripten upstream backend issue https://github.com/emscripten-core/emscripten/issues/8761
                "-DCMAKE_BUILD_TYPE=Release",
                "-DCPU_BASELINE=''",

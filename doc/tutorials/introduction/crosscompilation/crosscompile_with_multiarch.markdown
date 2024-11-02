@@ -286,12 +286,17 @@ PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig:/usr/share/pkgconfig \
               -DCMAKE_TOOLCHAIN_FILE=/home/kmtr/work/opencv/platforms/linux/aarch64-gnu.toolchain.cmake \
               -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib/modules \
               -DPYTHON3_NUMPY_INCLUDE_DIRS="/usr/local/lib/${PYTHON3_BASENAME}/dist-packages/numpy/core/include/" \
-              -DPYTHON3_INCLUDE_PATH="/usr/include/${PYTHON3_BASENAME};/usr/include/" \
+              -DPYTHON3_INCLUDE_DIRS="/usr/include/${PYTHON3_BASENAME};/usr/include/" \
               -DPYTHON3_LIBRARIES=`find /usr/lib/aarch64-linux-gnu/ -name libpython*.so` \
-              -DPYTHON3_EXECUTABLE="/usr/bin/${PYTHON3_BASENAME}" \
+              -DOPENCV_PYTHON_HOST_EXECUTABLE="/usr/bin/python3" \
               -DPYTHON3_CVPY_SUFFIX=".so" \
               -GNinja
 @endcode
+
+`OPENCV_PYTHON_HOST_EXECUTABLE` is executed on the host to generate bindings.
+`PYTHON3_INCLUDE_DIRS`, `PYTHON3_LIBRARIES`, and
+`PYTHON3_NUMPY_INCLUDE_DIRS` describe the target Python installation and may
+refer to a different Python version.
 
 @note
 @parblock

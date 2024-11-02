@@ -116,7 +116,7 @@ unset(__config_str)
 file(GLOB_RECURSE typing_stubs_generation_files "${PYTHON_SOURCE_DIR}/src2/typing_stubs_generation/*.py")
 add_custom_command(
     OUTPUT ${cv2_generated_files}
-    COMMAND "${PYTHON_DEFAULT_EXECUTABLE}" "${PYTHON_SOURCE_DIR}/src2/gen2.py"
+    COMMAND "${OPENCV_PYTHON_HOST_EXECUTABLE}" "${PYTHON_SOURCE_DIR}/src2/gen2.py"
         "--config" "${JSON_CONFIG_FILE_PATH}"
         "--output_dir" "${CMAKE_CURRENT_BINARY_DIR}"
     DEPENDS "${PYTHON_SOURCE_DIR}/src2/gen2.py"

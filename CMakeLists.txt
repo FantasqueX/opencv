@@ -28,10 +28,6 @@ if(POLICY CMP0146)
   cmake_policy(SET CMP0146 OLD)  # CMake 3.27+: use CMake FindCUDA if available.
 endif()
 
-if(POLICY CMP0148)
-  cmake_policy(SET CMP0148 OLD)  # CMake 3.27+: use CMake FindPythonInterp and FindPythonLib if available.
-endif()
-
 if(POLICY CMP0218)
   cmake_policy(SET CMP0218 NEW)  # Suppress warning for CMAKE_WARN_DEPRECATED in CMake 4.4.0+
 endif()
@@ -815,10 +811,10 @@ if(BUILD_JAVA)
   endif()
 endif()
 
-if(ENABLE_PYLINT AND PYTHON_DEFAULT_AVAILABLE)
+if(ENABLE_PYLINT AND OPENCV_PYTHON_HOST_FOUND)
   include(cmake/OpenCVPylint.cmake)
 endif()
-if(ENABLE_FLAKE8 AND PYTHON_DEFAULT_AVAILABLE)
+if(ENABLE_FLAKE8 AND OPENCV_PYTHON_HOST_FOUND)
   find_package(Flake8 QUIET)
   if(NOT FLAKE8_FOUND OR NOT FLAKE8_EXECUTABLE)
     include("${CMAKE_CURRENT_LIST_DIR}/cmake/FindFlake8.cmake")
@@ -826,7 +822,7 @@ if(ENABLE_FLAKE8 AND PYTHON_DEFAULT_AVAILABLE)
   if(FLAKE8_FOUND)
     list(APPEND OPENCV_FLAKE8_EXCLUDES ".git" "__pycache__" "config.py" "*.config.py" "config-*.py")
     list(APPEND OPENCV_FLAKE8_EXCLUDES "svgfig.py")  # 3rdparty
-    if(NOT PYTHON3_VERSION_STRING VERSION_GREATER 3.6)
+    if(NOT OPENCV_PYTHON_HOST_VERSION VERSION_GREATER 3.6)
       # Python 3.6+ (PEP 526): variable annotations (type hints)
       list(APPEND OPENCV_FLAKE8_EXCLUDES "samples/dnn/dnn_model_runner/dnn_conversion/common/test/configs")
     endif()
@@ -1990,7 +1986,7 @@ if(BUILD_opencv_python3)
 endif()
 
 status("")
-status("  Python (for build):"  PYTHON_DEFAULT_AVAILABLE THEN "${PYTHON_DEFAULT_EXECUTABLE}" ELSE NO)
+status("  Python (for build):"  OPENCV_PYTHON_HOST_FOUND THEN "${OPENCV_PYTHON_HOST_EXECUTABLE} (ver ${OPENCV_PYTHON_HOST_VERSION})" ELSE NO)
 
 # ========================== java ==========================
 if(BUILD_JAVA)
