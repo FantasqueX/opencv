@@ -168,10 +168,10 @@ CV_ENUM(CvtMode32F,
     )
 
 CV_ENUM(CvtModeBayer,
-    COLOR_BayerBG2BGR, COLOR_BayerBG2BGRA, COLOR_BayerBG2BGR_VNG, COLOR_BayerBG2GRAY,
-    COLOR_BayerGB2BGR, COLOR_BayerGB2BGRA, COLOR_BayerGB2BGR_VNG, COLOR_BayerGB2GRAY,
-    COLOR_BayerGR2BGR, COLOR_BayerGR2BGRA, COLOR_BayerGR2BGR_VNG, COLOR_BayerGR2GRAY,
-    COLOR_BayerRG2BGR, COLOR_BayerRG2BGRA, COLOR_BayerRG2BGR_VNG, COLOR_BayerRG2GRAY
+    COLOR_BayerBG2GRAY,
+    COLOR_BayerGB2GRAY,
+    COLOR_BayerGR2GRAY,
+    COLOR_BayerRG2GRAY
     )
 
 
@@ -409,7 +409,7 @@ typedef perf::TestBaseWithParam<Size_CvtMode_Bayer_t> Size_CvtMode_Bayer;
 
 PERF_TEST_P(Size_CvtMode_Bayer, cvtColorBayer8u,
             testing::Combine(
-                testing::Values(::perf::szODD, ::perf::szVGA),
+                testing::Values(::perf::sz4320p),
                 CvtModeBayer::all()
                 )
             )
