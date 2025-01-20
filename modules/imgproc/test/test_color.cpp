@@ -1857,6 +1857,49 @@ TEST(Imgproc_ColorBayer, regression)
     EXPECT_EQ(gold.cols, result.cols);
     EXPECT_EQ(gold.rows, result.rows);
 
+    // std::cout << gold << std::endl;
+    //
+    // std::cout << "=====" << std::endl;
+    //
+    // std::cout << result << std::endl;
+
+    bool flag = false;
+    for (int i = 0; i < gold.rows; i++)
+    {
+        for (int j = 0; j < gold.cols; j++)
+        {
+            if (result.at<uchar>(i, j) != gold.at<uchar>(i, j))
+            {
+                flag = true;
+                std::cout << i << " " << j << " " << static_cast<int>(result.at<uchar>(i, j)) << " " << static_cast<int>(gold.at<uchar>(i, j)) << "\n";
+            }
+            if (flag)
+            {
+                break;
+            }
+        }
+        if (flag)
+        {
+            break;
+        }
+    }
+
+    // for (int i = 0; i < 2; i++)
+    // {
+    //     for (int j = 0; j < 2; j++)
+    //     {
+    //         std::cout << i << " " << j << " " << static_cast<int>(result.at<uchar>(i, j)) << " " << static_cast<int>(gold.at<uchar>(i, j)) << "\n";
+    //     }
+    // }
+    //
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         std::cout << i << " " << j << " " << static_cast<int>(given.at<uchar>(i, j)) << "\n";
+    //     }
+    // }
+
     Mat diff;
     absdiff(gold, result, diff);
 
